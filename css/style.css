@@ -1,0 +1,192 @@
+/* * {
+        box-sizing: border-box;
+      } */
+
+.logo {
+  max-width: 350px;
+}
+
+.border-secondary {
+  border-color: #cccccc !important;
+}
+
+.color-blue {
+  color: #0875e1;
+}
+
+.ab-max-width {
+  max-width: 800px;
+}
+
+.ab-success-width {
+  font-size: 4rem;
+}
+
+.ab-btn-light {
+  border: 1px solid #cccccc; /* 灰色border */
+
+  transition: background-color 0.3s, border 0.3s; /* 添加過渡效果 */
+}
+
+/* 按鈕的hover狀態樣式 */
+/* .ab-btn:hover {
+  background-color:#40B4E5; 
+  border: none; 
+} */
+
+.ab-btn-yellow {
+  color: #000000;
+  background-color: #ffb71b;
+  transition: background-color 0.3s, border 0.3s; /* 添加過渡效果 */
+}
+
+/* 按鈕的hover狀態樣式 */
+.ab-btn-yellow:hover {
+  color: #ffffff;
+  background-color: #000000;
+}
+
+.ab-max-height {
+  max-height: 300px;
+}
+
+@media (max-width: 576px) {
+  .w-sm-100 {
+    width: 100% !important;
+  }
+}
+
+.ab-indent-20 {
+  margin-left: 20px;
+}
+
+/* Checkbox 樣式 */
+/* .form-check-input[type="checkbox"] {
+
+border-radius: 50px;
+
+} */
+
+/* 8/10 for 抽獎 */
+.bg-cover {
+  /* background-position: center center; */
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* 抽獎套件 */
+
+#bigholder {
+  background: transparent;
+  /* margin-top: 10%; */
+  /* padding: 20px; */
+  font-family: open sans;
+  font-size: 0px;
+  font-weight: thin;
+  text-transform: capitalize;
+}
+#bigholdeer {
+  /* border-bottom: solid 3px #000; */
+
+  padding: 10px;
+  /* font-family: open sans; */
+  font-size: 20px;
+  /* font-weight: thin; */
+  /* text-transform: capitalize; */
+  /* width: 300px; */
+  margin: 0 auto;
+}
+/* .gen {
+  background: #000;
+  color: #fff;
+  padding: 4px;
+  font-family: oswald;
+  font-size: 20px;
+} */
+.holder {
+  display: inline-block;
+  height: 100px;
+  width: auto;
+  text-align: center;
+  overflow: hidden;
+  background: transparent;
+  color: #ffb71b;
+  border: 1px solid #ffb71b;
+  border-radius: 10%;
+  padding: 0;
+  margin: 10px;
+}
+.digitHolder {
+  line-height: 100px;
+  /* margin: 0 8px 0 8px; */
+  margin: -5px 40px;
+
+  font-size: 110px;
+  font-family: oswald;
+  -webkit-transition: margin-top 1s ease;
+  -moz-transition: margin-top 1s ease;
+  -o-transition: margin-top 1s ease;
+  transition: margin-top 1s ease;
+}
+
+.ab-go-btn {
+  border-radius: 50%;
+  color: #000000;
+  background: #ffb71b;
+  font-size: 50px;
+}
+/* button:hover {
+  -webkit-transform: scale(1.1, 1.1);
+  -moz-transform: scale(1.1, 1.1);
+  -o-transform: scale(1.1, 1.1);
+  transform: scale(1.1, 1.1);
+} */
+
+/* 輪播 */
+.custom-carousel .carousel-control-prev {
+  margin-left: -50px; /* 調整左邊按鈕的間距，可根據需要調整 */
+  color: rgb(255, 7, 7) !important;
+}
+
+.custom-carousel .carousel-control-next {
+  margin-right: -50px; /* 調整右邊按鈕的間距，可根據需要調整 */
+}
+
+.custom-carousel .carousel-control-prev:hover,
+.custom-carousel .carousel-control-next:hover {
+  color: rgb(255, 7, 7) !important; /* 設定懸停時的文字顏色，這裡以白色為例 */
+}
+
+/* 拉霸機 */
+@media (max-width: 458px) {
+  /* 拉霸機元素的調整 */
+  #bigholder {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 在小屏幕设备上调整拉霸机元素的样式 */
+  #bigholder {
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+  }
+
+  .holder {
+    width: 80px; /* 调整容器的宽度，使其适应手机屏幕 */
+    height: 100px;
+    margin: 5px; /* 调整容器的间距，以适应手机屏幕 */
+  }
+
+  .digitHolder {
+    font-size: 60px; /* 调整数字的大小，以适应手机屏幕 */
+    margin: -20px; /* 调整数字的间距，以适应手机屏幕 */
+  }
+
+  .ab-go-btn {
+    font-size: 30px; /* 调整按钮的大小，以适应手机屏幕 */
+  }
+}
