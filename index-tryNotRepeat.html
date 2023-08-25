@@ -203,11 +203,23 @@
           reset(); // 重設 holder 陣列，清除儲存的數字
         }
 
+        var usedNumbers = new Set(); // 儲存已使用的數字的集合
+
         // 生成隨機數字並顯示在段落元素中
         function randomize() {
-          var randomm = Math.floor(Math.random() * 1800); // 生成最大數值內的隨機數
-          var num = randomm.toString().padStart(4, "1"); // 將數字格式化為4位，並使用零填充
+          var randomm;
+          do {
+            randomm = Math.floor(Math.random() * 1800); // 生成最大數值內的隨機數
+          } while (usedNumbers.has(randomm)); // 循環直到生成的數字不在已使用的集合中
+
+          usedNumbers.add(randomm); // 將新的數字加入已使用的集合
+
+          var num = randomm.toString().padStart(4, "0"); // 將數字格式化為4位，並使用零填充
           $("p").text(num); // 將生成的數字顯示在段落元素中
+
+          if (usedNumbers.size >= 1800) {
+            usedNumbers.clear(); // 如果所有數字都已使用，則清空集合重新開始
+          }
         }
 
         // 將數字拆解並儲存到 holder 陣列中
