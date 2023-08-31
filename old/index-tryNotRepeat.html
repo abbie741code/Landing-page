@@ -155,12 +155,6 @@
                 <button id="go" class="ab-go-btn fw-bold mt-3 mt-md-0">
                   Go
                 </button>
-                <button
-                  id="reset"
-                  class="ab-reset-btn fw-bold mt-3 mt-md-0 ms-3"
-                >
-                  Reset
-                </button>
               </div>
 
               <!-- 不可刪程式會失效 -->
@@ -185,72 +179,85 @@
     <!-- slot machine必引用 -->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script>
-      $(document).ready(function () {
-        var holder = [];
+       $(document).ready(function () {
+      var holder = []; // 用於儲存每個數字的陣列
 
-        // 將點擊事件委派到共同的父元素
-        $(".carousel-control-prev, .carousel-control-next").on(
-          "click",
-          function (event) {
-            // 取消事件冒泡，防止影響其他元素
-            event.stopPropagation();
-          }
-        );
-
-        $("#go").click(function () {
-          go();
-        });
-
-        $("#reset").click(function () {
-          resetSlot();
-        });
-
-        function go() {
-          randomize();
-          sliceNum();
-          turnTheSlot();
-          reset();
+      // 將點擊事件委派給左右箭頭按鈕，防止事件冒泡影響其他元素
+      $(".carousel-control-prev, .carousel-control-next").on(
+        "click",
+        function (event) {
+          event.stopPropagation(); // 取消事件冒泡
         }
+      );
 
-        var previousRandom = -1; // 用來儲存上一次的隨機數字
-
-        function randomize() {
-          var randomm;
-
-          do {
-            randomm = Math.floor(Math.random() * 1800); //最大數字要多加1
-          } while (randomm === previousRandom); // 如果與上一次相同，就重新生成
-
-          previousRandom = randomm; // 更新上一次的隨機數字
-          var num = randomm.toString().padStart(4, "0");
-          $("p").text(num);
-        }
-
-        function sliceNum() {
-          var theNUM = $("p").text();
-          for (var i = 0; i < 4; i++) {
-            var valu = theNUM.slice(i, i + 1);
-            holder.push(valu);
-          }
-        }
-
-        function resetSlot() {
-          $(".digitHolder").css("margin-top", "0");
-        }
-
-        function reset() {
-          holder.length = 0;
-        }
-
-        function turnTheSlot() {
-          for (var i = 0; i < 4; i++) {
-            var theValue = holder[i];
-            var margin = 100 * theValue;
-            $("#" + i).css("margin-top", "-" + margin + "px");
-          }
-        }
+      // 當按鈕 id="go" 被點擊時執行的函式
+      $("#go").click(function () {
+        go(); // 呼叫 go() 函式開始執行各步驟
       });
+
+      // 初始化函式，開始執行整個轉盤的動作
+      function go() {
+        randomize(); // 生成隨機數字並顯示在段落元素中
+        sliceNum(); // 將數字拆解並儲存到 holder 陣列中
+        turnTheSlot(); // 根據儲存的數字資訊，轉動對應的槽位
+        reset(); // 重設 holder 陣列，清除儲存的數字
+      }
+
+      var usedNumbers = new Set(); // 儲存已使用的數字的集合
+
+      // 生成隨機數字並顯示在段落元素中
+      function randomize() {
+        var randomm;
+        do {
+          randomm = Math.floor(Math.random() * 1800); // 生成最大數值內的隨機數
+        } while (usedNumbers.has(randomm)); // 循環直到生成的數字不在已使用的集合中
+
+        usedNumbers.add(randomm); // 將新的數字加入已使用的集合
+
+        var num = randomm.toString().padStart(4, "0"); // 將數字格式化為4位，並使用零填充
+        $("p").text(num); // 將生成的數字顯示在段落元素中
+
+        if (usedNumbers.size >= 1800) {
+          usedNumbers.clear(); // 如果所有數字都已使用，則清空集合重新開始
+        }
+      }
+
+      // 將數字拆解並儲存到 holder 陣列中
+      function sliceNum() {
+        var theNUM = $("p").text(); // 獲取顯示的數字文字
+        for (var i = 0; i < 4; i++) {
+          var valu = theNUM.slice(i, i + 1); // 逐位獲取數字並儲存到陣列中
+          holder.push(valu); // 將數字新增到 holder 陣列中
+        }
+      }
+
+      // 重設 holder 陣列，清除儲存的數字
+      function reset() {
+        holder.length = 0; // 清空儲存數字的陣列
+      }
+
+      // 根據儲存的數字資訊，轉動對應的槽位
+      function turnTheSlot() {
+        for (var i = 0; i < 4; i++) {
+          var theValue = holder[i]; // 獲取目前槽位對應的數字
+          var margin = 100 * theValue; // 計算移動距離
+          $("#" + i).css("margin-top", "-" + margin + "px"); // 設定槽位的上邊距，實現移動效果
+
+          console.log(
+            "Slot " + i + ": Value = " + theValue + ", Margin = " + margin
+          );
+        }
+      }
+
+      // 獲取最終結果，限制在 0000~1800 範圍內
+      var result = parseInt(holder.join(""), 10); // 將陣列中的數字組合為一個整數
+      result = Math.min(result, 1800); // 將結果限制在 1800
+      result = Math.max(result, 0); // 再確保結果不低於 0
+      result = result.toString().padStart(4, "0"); // 格式化為 4 位，使用 0 填充
+      $("p").text(result); // 將最終結果顯示在段落元素中
+    });
     </script>
+
     <!-- jq-3.6.0.js & popper.js & bs.js (local自行放） -->
     <!-- <script type="text/javascript" src="js/jquery-3.6.0.js"></script>
     <script src="bootstrap-5.2.2-dist/js/popper.min.js"></script>

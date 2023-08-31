@@ -43,33 +43,27 @@
       /* *{
       outline: 1px solid rgb(255, 173, 213);
       } */
+      .ab-reset {
+  border-radius: 50%;
+  color: #000000;
+  background: #ffb71b;
+  font-size: 50px;
+}
+
     </style>
+    .ab-reset {
+      border-radius: 50%;
+      color: #000000;
+      background: #ffb71b;
+      font-size: 50px;
+    }
+    
   </head>
 
   <body>
-    <div class="container-fluid p-5 bg-cover">
-      <!-- 背景風景照片 -->
-      <img src="images/bg.png" class="img-fluid" alt="背景風景照片">
-  
-      <!-- 照片輪播牆 -->
-      <div id="carouselExampleIndicators" class="carousel slide position-absolute top-0 start-50 translate-middle-x">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="images/gift1.png" class="d-block w-100" alt="照片1">
-          </div>
-          <div class="carousel-item">
-            <img src="images/gift2.png" class="d-block w-100" alt="照片2">
-          </div>
-          <!-- 添加更多照片項目 -->
-        </div>
-      </div>
-      
-      <!-- 抽獎數字及按鈕 -->
-      <div class="d-flex flex-column align-items-center position-absolute bottom-0 start-50 translate-middle-x p-4">
-        <h1 id="winningNumber" class="mb-4">0000</h1>
-        <button id="randomButton" class="btn btn-primary">抽獎</button>
-      </div>
-    </div>
+    <button id="reset" class="ab-reset fw-bold  ms-3">
+      Reset
+    </button>
   
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

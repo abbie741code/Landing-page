@@ -155,12 +155,6 @@
                 <button id="go" class="ab-go-btn fw-bold mt-3 mt-md-0">
                   Go
                 </button>
-                <button
-                  id="reset"
-                  class="ab-reset-btn fw-bold mt-3 mt-md-0 ms-3"
-                >
-                  Reset
-                </button>
               </div>
 
               <!-- 不可刪程式會失效 -->
@@ -187,63 +181,62 @@
     <script>
       $(document).ready(function () {
         var holder = [];
+        var animationInterval; // 用于存储定时器
 
-        // 將點擊事件委派到共同的父元素
+        // 将点击事件委派到共同的父元素
         $(".carousel-control-prev, .carousel-control-next").on(
           "click",
           function (event) {
-            // 取消事件冒泡，防止影響其他元素
+            // 取消事件冒泡，防止影响其他元素
             event.stopPropagation();
           }
         );
 
         $("#go").click(function () {
+          clearInterval(animationInterval); // 清除之前的定时器
           go();
+          startAnimation(); // 启动新的定时器
         });
 
-        $("#reset").click(function () {
-          resetSlot();
-        });
-
-        function go() {
-          randomize();
-          sliceNum();
-          turnTheSlot();
-          reset();
+        function startAnimation() {
+          var animationDuration = 50; // 动画间隔时间，可以根据需要调整
+          animationInterval = setInterval(turnTheSlot, animationDuration);
         }
 
-        var previousRandom = -1; // 用來儲存上一次的隨機數字
+        function go() {
+          reset(); // 重置数组
+          randomize();
+          sliceNum();
+          resetDigitPositions(); // 重置数字的位置
+          turnTheSlot();
+        }
 
         function randomize() {
-          var randomm;
-
-          do {
-            randomm = Math.floor(Math.random() * 1800); //最大數字要多加1
-          } while (randomm === previousRandom); // 如果與上一次相同，就重新生成
-
-          previousRandom = randomm; // 更新上一次的隨機數字
+          var randomm = Math.floor(Math.random() * 2009); // 最大数值
           var num = randomm.toString().padStart(4, "0");
           $("p").text(num);
         }
 
         function sliceNum() {
           var theNUM = $("p").text();
-          for (var i = 0; i < 4; i++) {
+          for (var i = 0; i < 6; i++) {
             var valu = theNUM.slice(i, i + 1);
             holder.push(valu);
           }
-        }
-
-        function resetSlot() {
-          $(".digitHolder").css("margin-top", "0");
         }
 
         function reset() {
           holder.length = 0;
         }
 
+        function resetDigitPositions() {
+          for (var i = 0; i < 6; i++) {
+            $("#" + i).css("margin-top", "0");
+          }
+        }
+
         function turnTheSlot() {
-          for (var i = 0; i < 4; i++) {
+          for (var i = 0; i < 6; i++) {
             var theValue = holder[i];
             var margin = 100 * theValue;
             $("#" + i).css("margin-top", "-" + margin + "px");
@@ -251,6 +244,7 @@
         }
       });
     </script>
+
     <!-- jq-3.6.0.js & popper.js & bs.js (local自行放） -->
     <!-- <script type="text/javascript" src="js/jquery-3.6.0.js"></script>
     <script src="bootstrap-5.2.2-dist/js/popper.min.js"></script>
